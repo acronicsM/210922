@@ -13,6 +13,6 @@ class Command(BaseCommand):
 
         for i in range(5):
             name = f'test{i}'
-            user = User.objects.create_user(name, password=name.capitalize(), email=f'{name}@test.local')
+            user = User.objects.create_user(name, password=name.capitalize(), email=f'{name}@tests.local')
             user.save()
 

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'users',
+    'todo_m',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +143,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework_xml.parsers.XMLParser',
+    ],
+    # 'DEFAULT_RENDERER_CLASSES': [
+    #     'rest_framework_xml.renderers.XMLRenderer',
+    # ],
+}

@@ -3,6 +3,7 @@ from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.permissions import AllowAny
 
 
 from django.shortcuts import render

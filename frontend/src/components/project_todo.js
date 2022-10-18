@@ -19,7 +19,7 @@ const ProjectTodo = ({todos}) =>{
     let {projectId} = useParams()
     console.log(projectId)
     console.log(todos)
-    let filter_todos = todos.filter((todo)=> todo.project==(parseInt(projectId)))
+    let filter_todos = todos.filter((todo)=> todo.project===(parseInt(projectId)))
     console.log(todos)
     return(
         <table>

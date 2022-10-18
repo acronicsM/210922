@@ -33,6 +33,6 @@ urlpatterns = [
     path('api/todo', TodoProjectAPIView.as_view()),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('api-token-auth/', views.obtain_auth_token),
+    # path('api-token-auth/', views.obtain_auth_token),
     # path('', include(router.urls)),
 ]

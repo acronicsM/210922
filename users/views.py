@@ -2,14 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
-from rest_framework.decorators import api_view, renderer_classes
-from rest_framework.permissions import AllowAny
 
-
-from django.shortcuts import render
-from rest_framework.viewsets import ModelViewSet
-
-from .serializers import UserModelSerializer
+from .serializers import UserModelSerializer, UserFullModelSerializer
 from .models import User
 
 
@@ -22,9 +16,12 @@ class UserAPIVIew(APIView):
         if pk:
             users = users.filter(id=pk)
 
-        serializer = UserModelSerializer(users, many=True)
-        return Response(serializer.data)
+        if self.request.version == 'v2':
+            serializer = UserFullModelSerializer(users, many=True)
+        else:
+            serializer = UserModelSerializer(users, many=True)
 
+        return Response(serializer.data)
 
     def patch(self, request, format=None):
         pk = request.query_params.get('pk')
@@ -37,4 +34,3 @@ class UserAPIVIew(APIView):
                     return Response(serializer.data, status=HTTP_201_CREATED)
 
         return Response(status=HTTP_400_BAD_REQUEST)
-

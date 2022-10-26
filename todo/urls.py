@@ -15,11 +15,27 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
-
+from rest_framework import permissions
 
 from users.views import UserAPIVIew
 from todo_m.views import ProjectAPIView, TodoProjectAPIView
+
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title='TODO',
+        default_version='v1',
+        description='Documentations',
+        contact=openapi.Contact(email='admi@mail.ru'),
+        license=openapi.License(name='MIT LICENSE'),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 # router = DefaultRouter()
 # router.register('users', UserModelViewSet)
@@ -34,5 +50,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api-token-auth/',obtain_auth_token),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('swagger-ui/', TemplateView.as_view(
+        template_name='swagger-ui.html',
+        extra_context={'schema_url': 'openapi-schema'}
+    ), name='swagger-ui'),
     # path('', include(router.urls)),
 ]

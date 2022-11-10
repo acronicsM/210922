@@ -19,6 +19,8 @@ from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework import permissions
 
+from graphene_django.views import GraphQLView
+
 from users.views import UserAPIVIew
 from todo_m.views import ProjectAPIView, TodoProjectAPIView
 
@@ -56,5 +58,6 @@ urlpatterns = [
         template_name='swagger-ui.html',
         extra_context={'schema_url': 'openapi-schema'}
     ), name='swagger-ui'),
+    path('graphql/', GraphQLView.as_view(graphiql=True)),
     # path('', include(router.urls)),
 ]
